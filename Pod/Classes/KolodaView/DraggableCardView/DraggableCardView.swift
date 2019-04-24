@@ -246,6 +246,10 @@ public class DraggableCardView: UIView, UIGestureRecognizerDelegate {
             delegate?.card(cardPanBegan: self)
             
         case .changed:
+            if dragDistance.x > 0 {
+                return
+            }
+            
             let rotationStrength = min(dragDistance.x / frame.width, rotationMax)
             let rotationAngle = self.rotationAngle * rotationStrength / 5
 //            let scaleStrength = 1 - ((1 - scaleMin) * abs(rotationStrength))
