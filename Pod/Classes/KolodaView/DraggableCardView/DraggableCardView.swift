@@ -269,6 +269,9 @@ public class DraggableCardView: UIView, UIGestureRecognizerDelegate {
             }
             
         case .ended:
+            if dragDistance.x > 0 {
+                return
+            }
             swipeMadeAction()
             delegate?.card(cardPanFinished: self)
             layer.shouldRasterize = false
