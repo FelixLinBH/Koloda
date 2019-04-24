@@ -246,11 +246,11 @@ public class DraggableCardView: UIView, UIGestureRecognizerDelegate {
             delegate?.card(cardPanBegan: self)
             
         case .changed:
-            if dragDistance.x > 0 {
-                return
-            }
+//            if dragDistance.x > 0 {
+//                return
+//            }
             
-            let rotationStrength = min(dragDistance.x / frame.width, rotationMax)
+            let rotationStrength = min(abs(dragDistance.x) / frame.width, rotationMax)
             let rotationAngle = self.rotationAngle * rotationStrength / 5
 //            let scaleStrength = 1 - ((1 - scaleMin) * abs(rotationStrength))
 //            let scale = max(scaleStrength, scaleMin)
@@ -258,7 +258,7 @@ public class DraggableCardView: UIView, UIGestureRecognizerDelegate {
             var transform = CATransform3DIdentity
 //            transform = CATransform3DScale(transform, scale, scale, 1)
             transform = CATransform3DRotate(transform, rotationAngle, 0, 0, 1)
-            transform = CATransform3DTranslate(transform, dragDistance.x, dragDistance.x/15, 0)
+            transform = CATransform3DTranslate(transform, dragDistance.x, -(abs(dragDistance.x)/15), 0)
             layer.transform = transform
             
             let percentage = dragPercentage
@@ -269,9 +269,9 @@ public class DraggableCardView: UIView, UIGestureRecognizerDelegate {
             }
             
         case .ended:
-            if dragDistance.x > 0 {
-                return
-            }
+//            if dragDistance.x > 0 {
+//                return
+//            }
             swipeMadeAction()
             delegate?.card(cardPanFinished: self)
             layer.shouldRasterize = false
