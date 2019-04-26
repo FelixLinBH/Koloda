@@ -115,8 +115,8 @@ open class KolodaView: UIView, DraggableCardDelegate {
     
     public var isLoop = false
     
-    private(set) public var currentCardIndex = 0
-    private(set) public var countOfCards = 0
+    public var currentCardIndex = 0
+    public var countOfCards = 0
     
     public weak var dataSource: KolodaViewDataSource? {
         didSet {
@@ -394,7 +394,7 @@ open class KolodaView: UIView, DraggableCardDelegate {
     }
 
     // MARK: Private
-    private func clear() {
+    public func clear() {
         currentCardIndex = 0
         
         for card in visibleCards {
@@ -589,7 +589,7 @@ open class KolodaView: UIView, DraggableCardDelegate {
     
     // MARK: Public
     
-    public func reloadData() {
+    public func reloadData(animated:Bool) {
         guard let numberOfCards = dataSource?.kolodaNumberOfCards(self), numberOfCards > 0 else {
             clear()
             return
@@ -607,7 +607,9 @@ open class KolodaView: UIView, DraggableCardDelegate {
             } else {
                 setupDeck()
                 layoutDeck()
-                applyAppearAnimationIfNeeded()
+                if animated{
+                    applyAppearAnimationIfNeeded()
+                }
             }
         } else {
             reconfigureCards()
@@ -641,7 +643,7 @@ open class KolodaView: UIView, DraggableCardDelegate {
     
     public func resetCurrentCardIndex() {
         clear()
-        reloadData()
+        reloadData(animated: false)
     }
     
     public func viewForCard(at index: Int) -> UIView? {
