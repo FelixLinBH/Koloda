@@ -15,7 +15,7 @@ private let defaultBackgroundCardsTopMargin: CGFloat = 6.0
 private let defaultBackgroundCardsScalePercent: CGFloat = 0.95
 private let defaultBackgroundCardsLeftMargin: CGFloat = 8.0
 private let defaultBackgroundCardFrameAnimationDuration: TimeInterval = 0.2
-private let defaultAppearanceAnimationDuration: TimeInterval = 0.8
+private let defaultAppearanceAnimationDuration: TimeInterval = 0.5
 private let defaultReverseAnimationDuration: TimeInterval = 0.3
 
 // Opacity values
@@ -643,7 +643,7 @@ open class KolodaView: UIView, DraggableCardDelegate {
     
     public func resetCurrentCardIndex() {
         clear()
-        reloadData(animated: false)
+        reloadData(animated: true)
     }
     
     public func viewForCard(at index: Int) -> UIView? {
